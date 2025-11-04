@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Market Place</title>
+    <meta name="description" content="Campus Market Place - Buy and sell notes, books, and more among students.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎓</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <div class="logo" aria-hidden="true">🎓</div>
+                <h1 class="title">Campus Market Place</h1>
+            </div>
+            <nav class="actions" aria-label="Primary">
+                <button id="openPostDialog" class="btn primary">Post Item</button>
+                <button id="openWishlist" class="btn">Wishlist (<span id="wishlistCount">0</span>)</button>
+                <div id="authArea">
+                    <button id="openLoginDialog" class="btn">Login</button>
+                    <button id="openRegisterDialog" class="btn">Register</button>
+                </div>
+                <div id="userArea" style="display:none">
+                    <span id="userName" style="margin-right:8px"></span>
+                    <button id="openInbox" class="btn">Inbox <span id="unreadBadge" style="opacity:.8"></span></button>
+                    <button id="logoutBtn" class="btn">Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero" aria-label="Welcome banner">
+            <img src="image/banner.jpg" alt="Campus Market Place banner">
+        </section>
+        <section aria-label="Search and filters" class="filters">
+            <div class="search-group">
+                <input id="searchInput" type="search" placeholder="Search notes, books, instruments..." autocomplete="off">
+            </div>
+            <div class="filter-group">
+                <select id="categoryFilter" aria-label="Category filter">
+                    <option value="">All categories</option>
+                    <option>Books</option>
+                    <option>Notes</option>
+                    <option>Electronics</option>
+                    <option>Stationery</option>
+                    <option>Furniture</option>
+                    <option>Lab Equipment</option>
+                    <option>Musical Instruments</option>
+                    <option>Sports</option>
+                    <option>Clothing</option>
+                    <option>Other</option>
+                </select>
+                <select id="conditionFilter" aria-label="Condition filter">
+                    <option value="">Any condition</option>
+                    <option>New</option>
+                    <option>Like New</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                </select>
+                <select id="sortSelect" aria-label="Sort listings">
+                    <option value="recent">Sort: Most recent</option>
+                    <option value="priceAsc">Sort: Price low to high</option>
+                    <option value="priceDesc">Sort: Price high to low</option>
+                    <option value="title">Sort: Title A–Z</option>
+                </select>
+            </div>
+        </section>
+
+        <section aria-label="Listings" id="listings" class="grid"></section>
+    </main>
+
+    <dialog id="postDialog">
+        <form id="postForm" method="dialog" class="post-form">
+            <header>
+                <h2>Post an Item</h2>
+            </header>
+            <div class="form-grid">
+                <label>
+                    <span>Title</span>
+                    <input name="title" required maxlength="80" placeholder="e.g., Calculus Textbook 7th Ed.">
+                </label>
+                <label>
+                    <span>Category</span>
+                    <select name="category" required>
+                        <option value="">Select</option>
+                        <option>Books</option>
+                        <option>Notes</option>
+                        <option>Electronics</option>
+                        <option>Stationery</option>
+                        <option>Furniture</option>
+                        <option>Lab Equipment</option>
+                        <option>Musical Instruments</option>
+                        <option>Sports</option>
+                        <option>Clothing</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Condition</span>
+                    <select name="condition" required>
+                        <option>New</option>
+                        <option>Like New</option>
+                        <option>Good</option>
+                        <option>Fair</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Price (₹)</span>
+                    <input name="price" type="number" min="0" step="1" required placeholder="e.g., 350">
+                </label>
+                <label class="span-2">
+                    <span>Description</span>
+                    <textarea name="description" rows="3" maxlength="400" placeholder="Key details, edition, highlights..."></textarea>
+                </label>
+                
+                <label class="span-2">
+                    <span>Photo (optional)</span>
+                    <input name="image" type="file" accept="image/*">
+                </label>
+            </div>
+            <footer class="dialog-actions">
+                <button value="cancel" class="btn">Cancel</button>
+                <button id="submitPost" class="btn primary" value="default">Post</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog id="loginDialog">
+        <form id="loginForm" method="dialog" class="post-form">
+            <header>
+                <h2>Login</h2>
+            </header>
+            <div class="form-grid">
+                <label class="span-2">
+                    <span>Email</span>
+                    <input name="email" type="email" required placeholder="name@college.edu">
+                </label>
+                <label class="span-2">
+                    <span>Password</span>
+                    <input name="password" type="password" required placeholder="••••••••">
+                </label>
+            </div>
+            <footer class="dialog-actions">
+                <button value="cancel" class="btn" formmethod="dialog" formnovalidate>Cancel</button>
+                <button id="submitLogin" class="btn primary" value="default">Login</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog id="registerDialog">
+        <form id="registerForm" method="dialog" class="post-form">
+            <header>
+                <h2>Register</h2>
+            </header>
+            <div class="form-grid">
+                <label>
+                    <span>Name</span>
+                    <input name="name" required maxlength="60" placeholder="Your name">
+                </label>
+                <label>
+                    <span>Email</span>
+                    <input name="email" type="email" required placeholder="name@college.edu">
+                </label>
+                <label class="span-2">
+                    <span>Password</span>
+                    <input name="password" type="password" required placeholder="••••••••">
+                </label>
+            </div>
+            <footer class="dialog-actions">
+                <button value="cancel" class="btn" formnovalidate>Cancel</button>
+                <button id="submitRegister" class="btn primary" value="default">Create account</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog id="wishlistDialog">
+        <header class="wishlist-header">
+            <h2>Your Wishlist</h2>
+        </header>
+        <div id="wishlistContainer" class="wishlist-list"></div>
+        <footer class="dialog-actions">
+            <button id="closeWishlist" class="btn">Close</button>
+        </footer>
+    </dialog>
+
+    <template id="listingCardTemplate">
+        <article class="card">
+            <div class="thumb" role="img" aria-label="Item image"></div>
+            <div class="card-body">
+                <h3 class="card-title"></h3>
+                <div class="meta">
+                    <span class="price"></span>
+                    <span class="dot">•</span>
+                    <span class="category"></span>
+                    <span class="dot">•</span>
+                    <span class="condition"></span>
+                </div>
+                <p class="desc"></p>
+                <div class="seller">
+                    <span class="seller-name"></span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <button class="btn icon wishlist-btn" title="Add to wishlist" aria-label="Add to wishlist">♡</button>
+                <a class="btn contact-btn" target="_blank">Email</a>
+                <button class="btn primary dm-btn" type="button">Message</button>
+            </div>
+        </article>
+    </template>
+
+    <dialog id="editDialog">
+        <form id="editForm" method="dialog" class="post-form">
+            <header>
+                <h2>Edit Listing</h2>
+            </header>
+            <div class="form-grid">
+                <label>
+                    <span>Title</span>
+                    <input name="title" required maxlength="80">
+                </label>
+                <label>
+                    <span>Category</span>
+                    <select name="category" required>
+                        <option>Books</option>
+                        <option>Notes</option>
+                        <option>Electronics</option>
+                        <option>Stationery</option>
+                        <option>Furniture</option>
+                        <option>Lab Equipment</option>
+                        <option>Musical Instruments</option>
+                        <option>Sports</option>
+                        <option>Clothing</option>
+                        <option>Other</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Condition</span>
+                    <select name="condition" required>
+                        <option>New</option>
+                        <option>Like New</option>
+                        <option>Good</option>
+                        <option>Fair</option>
+                    </select>
+                </label>
+                <label>
+                    <span>Price (₹)</span>
+                    <input name="price" type="number" min="0" step="1" required>
+                </label>
+                <label class="span-2">
+                    <span>Description</span>
+                    <textarea name="description" rows="3" maxlength="400"></textarea>
+                </label>
+                <label class="span-2">
+                    <span>Photo (optional)</span>
+                    <input name="image" type="file" accept="image/*">
+                </label>
+            </div>
+            <footer class="dialog-actions">
+                <button value="cancel" class="btn">Cancel</button>
+                <button id="submitEdit" class="btn primary" value="default">Save</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog id="chatDialog">
+        <form id="chatForm" method="dialog" class="post-form">
+            <header>
+                <h2>Direct Message</h2>
+            </header>
+            <div class="form-grid span-2" style="grid-template-columns:1fr;">
+                <div id="chatThread" style="max-height:40vh; overflow:auto; border:1px solid var(--border); background:#0c1222; border-radius:8px; padding:10px"></div>
+                <label class="span-2">
+                    <span>Message</span>
+                    <textarea name="text" rows="3" maxlength="2000" required placeholder="Type your message..."></textarea>
+                </label>
+            </div>
+            <footer class="dialog-actions">
+                <button value="cancel" class="btn">Close</button>
+                <button id="sendChat" class="btn primary" value="default">Send</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <dialog id="inboxDialog">
+        <header class="wishlist-header">
+            <h2>Inbox</h2>
+        </header>
+        <div id="inboxContainer" class="wishlist-list"></div>
+        <footer class="dialog-actions">
+            <button id="closeInbox" class="btn">Close</button>
+        </footer>
+    </dialog>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+

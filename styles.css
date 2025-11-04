@@ -1,0 +1,80 @@
+:root{
+  --bg:#0b0e14;
+  --surface:#111727;
+  --muted:#93a1b0;
+  --text:#e6edf3;
+  --primary:#6aa84f;
+  --primary-600:#5a9444;
+  --ring:#2a3b5f;
+  --card:#0f1422;
+  --border:#1a2236;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"}
+
+.container{max-width:1100px;margin:0 auto;padding:16px}
+
+.site-header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--surface),rgba(17,23,39,.92));border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+.header-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;background:var(--card)}
+.title{font-size:20px;margin:0}
+
+.actions{display:flex;gap:10px}
+.btn{appearance:none;border:1px solid var(--border);background:#131a2c;color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer;transition:.2s ease all}
+.btn:hover{border-color:var(--ring);transform:translateY(-1px)}
+.btn.primary{background:var(--primary);border-color:transparent;color:#0a0e14}
+.btn.primary:hover{background:var(--primary-600)}
+.btn.icon{padding:6px 10px}
+
+.filters{display:grid;grid-template-columns:1fr auto;gap:12px;margin:18px 0}
+.hero{margin:18px 0}
+.hero img{width:auto;height: 150px;px;border:1px solid var(--border);border-radius:12px;display:block;background:#0c1222}
+.search-group input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:#0c1222;color:var(--text);outline:none}
+.filter-group{display:flex;gap:10px}
+.filter-group select{background:#0c1222;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:10px}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr;}}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.thumb{background:#0c1222;aspect-ratio:16/10}
+.card-body{padding:12px}
+.card-title{margin:0 0 6px 0;font-size:18px}
+.meta{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:14px}
+.meta .dot{opacity:.5}
+.desc{color:#c7d1dc;font-size:14px;min-height:40px}
+.seller{color:var(--muted);font-size:13px;margin-top:6px}
+.card-actions{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);margin-top:auto}
+.card-actions .btn{flex:1}
+.card-actions .btn.icon{flex:0}
+.owner-actions{display:flex;gap:8px}
+.chat-msg{display:flex;gap:8px;margin:6px 0}
+.chat-msg.me{justify-content:flex-end}
+.chat-bubble{max-width:70%;padding:8px 10px;border-radius:10px;background:#1a2236;color:var(--text)}
+.chat-msg.me .chat-bubble{background:var(--primary);color:#0a0e14}
+
+dialog{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;padding:0;max-width:720px;width:96%}
+dialog::backdrop{background:rgba(0,0,0,.4);backdrop-filter:blur(2px)}
+.post-form header,.wishlist-header{padding:14px 16px;border-bottom:1px solid var(--border)}
+.post-form h2,.wishlist-header h2{margin:0;font-size:18px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:16px}
+.form-grid label{display:flex;flex-direction:column;gap:6px;font-size:14px}
+.form-grid input,.form-grid select,.form-grid textarea{background:#0c1222;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:10px;outline:none}
+.form-grid .span-2{grid-column:1 / -1}
+.dialog-actions{display:flex;justify-content:flex-end;gap:10px;padding:14px 16px;border-top:1px solid var(--border)}
+
+.wishlist-list{padding:16px;max-height:60vh;overflow:auto;display:grid;gap:10px}
+.wishlist-item{display:flex;align-items:center;gap:10px;border:1px solid var(--border);background:#0c1222;border-radius:10px;padding:10px}
+.wishlist-item .thumb{width:64px;aspect-ratio:1;border-radius:8px}
+.wishlist-item .title{font-size:15px;margin:0}
+.wishlist-item .muted{color:var(--muted);font-size:13px}
+
+.empty{padding:24px;text-align:center;color:var(--muted)}
+
+footer.site-footer{margin:32px 0;color:var(--muted);text-align:center}
+
+
+
